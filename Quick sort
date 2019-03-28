@@ -1,0 +1,62 @@
+// Algorithms Practice.cpp : Defines the entry point for the console application.
+//
+#include <stdio.h>
+#include <cmath>
+#include <math.h>
+#include <ctime>
+#define Size 10000
+int arr[Size];
+void Swap(int * x,int * y) {
+	int t = *x;*x = *y;*y = t;
+}
+
+int RandomPartion(int p, int r) {
+
+	srand(time(0));
+	int f = p + rand() % (r - p);
+	Swap(&arr[f],&arr[r]);
+	int i = p - 1;
+	for (int j = p; j < r; j++)
+	{
+		if (arr[j] <= arr[r]) {
+			i++;
+			Swap(&arr[j], &arr[i]);
+		}
+	}
+	Swap(&arr[i + 1], &arr[r]);
+	return i + 1;
+}
+void QuickSort(int p,int r) {
+	if (p < r)
+	{
+		int q = RandomPartion(p, r);
+		QuickSort(p, q - 1);
+		QuickSort(q + 1, r);
+	}
+}
+void QuickSort(int size) {
+
+	QuickSort(0, size - 1);
+}
+int main()
+{
+	srand(time(0));
+
+	
+	int size = Size;
+	for (int i = 0; i < size; i++) {
+		arr[i] = 1 + rand() % 1000;
+	}
+
+	for (int i = 0; i < size; i++){
+		printf("%d ",arr[i]);
+	}printf("\n");
+
+	QuickSort(size);
+
+	for (int i = 0; i < size; i++) {
+		printf("%d ", arr[i]);
+	}printf("\n");
+    return 0;
+}
+
